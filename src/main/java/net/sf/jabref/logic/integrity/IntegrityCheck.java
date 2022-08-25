@@ -283,11 +283,25 @@ public class IntegrityCheck {
             if (!CONTAINS_FOUR_DIGIT.test(value.get().trim())) {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
             }
+            int ourDate = Integer.parseInt(value.get().trim());
+
+            // Verificando se o ano é negativo
+            if (ourDate <= 0) {
+                return Collections.singletonList(
+                        new IntegrityMessage(Localization.lang("should be a postive number"), entry, "year"));
+            }
+
+            LocalDate currentDate = LocalDate.now();
+
+            // Verifica se o o ano colocado é maior que o ano atual
+            if (ourDate > currentDate.getYear()) {
+                return Collections.singletonList(new IntegrityMessage(
+                        Localization.lang("field year cannot be higher than current year"), entry, "year"));
+            }
 
             return Collections.emptyList();
         }
     }
-
     /**
      * From BibTex manual:
      * One or more page numbers or range of numbers, such as 42--111 or 7,41,73--97 or 43+
