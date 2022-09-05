@@ -302,6 +302,25 @@ public class IntegrityCheck {
             return Collections.emptyList();
         }
     }
+
+    private static class BibTexKeyChecker implements Checker {
+
+        @Override
+        public List<IntegrityMessage> check(BibEntry entry) {
+            String entryString = entry.getCiteKey();
+
+            if (entryString.length() < 2) {
+                return Collections.singletonList(new IntegrityMessage(
+                        Localization.lang("field bibtex must have at least 2 characters"), entry, "bibtexkey"));
+            }
+
+            if (!Character.isAlphabetic(entryString.charAt(0))) {
+                return Collections.singletonList(new IntegrityMessage(
+                        Localization.lang("field bibtex must start with an alphabetic letter"), entry, "bibtexkey"));
+            }
+            return Collections.emptyList();
+        }
+    }
     /**
      * From BibTex manual:
      * One or more page numbers or range of numbers, such as 42--111 or 7,41,73--97 or 43+
