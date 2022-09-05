@@ -314,7 +314,7 @@ public class IntegrityCheck {
                         Localization.lang("field bibtex must have at least 2 characters"), entry, "bibtexkey"));
             }
 
-            if (!Character.isAlphabetic(entryString.charAt(0))) {
+            if (!Character.isLetter(entryString.charAt(0))) {
                 return Collections.singletonList(new IntegrityMessage(
                         Localization.lang("field bibtex must start with an alphabetic letter"), entry, "bibtexkey"));
             }
